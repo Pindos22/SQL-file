@@ -1,3 +1,4 @@
+--1. Create database
 USE master
 IF EXISTS (SELECT * FROM sys.databases WHERE Name='EmployeeDB')
 DROP DATABASE EmployeeDB
@@ -9,6 +10,7 @@ GO
 USE EmployeeDB
 GO
 
+--2. Create tables and constraints
 CREATE TABLE Department (
     DepartId INT PRIMARY KEY,
     DepartName VARCHAR(50) NOT NULL,
@@ -29,6 +31,7 @@ CREATE TABLE Employee (
 )
 GO
 
+--3. Insert into above tables at least 3 records per table [3 marks].
 INSERT INTO Department (DepartId, DepartName, Description) VALUES
 (1, 'Human Resources', 'Handles recruitment, training, and employee welfare.'),
 (2, 'Finance', 'Manages financial planning, analysis, and reporting.'),
@@ -45,10 +48,13 @@ INSERT INTO Employee (EmpCode, FirstName, LastName, Birthday, Gender, Address, D
 ('E005', 'Chris', 'Brown', '1995-03-12', 1, '246 Cedar St, Springfield', 5, 50000.00);
 GO
 
+--4. Increase the salary for all employees by 10% [1 mark].
 UPDATE Employee
 SET Salary = Salary * 1.10;
 GO
 
+--5. Using ALTER TABLE statement to add constraint on Employee table to ensure that
+--salary always greater than 0 [2 marks].
 ALTER TABLE Employee
 ADD CONSTRAINT chk_salary_positive
 CHECK (Salary > 0);
